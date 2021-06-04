@@ -1,4 +1,4 @@
-watchlist-env/
+venv/
 *.pyc
 instance/
 links.txt
