@@ -2,8 +2,7 @@ click==7.1.2
 dominate==2.6.0
 Flask==1.1.4
 Flask-Bootstrap==3.3.7.1
-# Editable Git install with no remote (Flask-Script==2.0.6)
--e /home/layersony/Documents/Canvas_Moringa/Core/Python/Week_2/watchlist/venv/lib/python3.8/site-packages
+Flask-Script==2.0.6
 Flask-WTF==0.15.1
 gunicorn==20.1.0
 itsdangerous==1.1.0
