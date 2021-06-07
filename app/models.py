@@ -1,3 +1,29 @@
+from . import db
+
+class User(db.Model): # for creating new user
+  __tablename__ = 'users' # allows us to give table in db a proper name
+
+  id = db.Column(db.Integer, primary_key = True) # rep a single column 1st para type of data to be stored
+  username = db.Column(db.String(255)) # db.String type of data to be stored is string (255) is max number
+  role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+  def __repr__(self):
+    return f'User {self.username}' # not important just for debuging
+
+class Role(db.Model):
+  __tablename__ = 'roles'
+
+  id = db.Column(db.Integer, primary_key = True)
+  name = db.Column(db.String(255))
+  users = db.relationship('User', backref = 'role', lazy="dynamic")
+    # creates virtual column that will connect with foregin key
+      # 1st > class referencing 
+      # 2nd > allow us to access and set our user class (get the role of user instance we can just run)
+      # 3rd > our objects will be loaded on access and filtered before returning
+
+  def __repr__(self):
+    return f'User {self.name}'
+
 class Movie:
   def __init__(self,id,title,overview,poster,vote_average,vote_count):
     self.id =id
