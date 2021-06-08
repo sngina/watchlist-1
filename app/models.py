@@ -1,4 +1,5 @@
-from . import db
+from . import db 
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model): # for creating new user
   __tablename__ = 'users' # allows us to give table in db a proper name
@@ -9,7 +10,22 @@ class User(db.Model): # for creating new user
 
   def __repr__(self):
     return f'User {self.username}' # not important just for debuging
+  username
+  pass_secure = db.Column(db.String(255))
+  @property 
+  def password(self):
+      raise AttributeError('You cannot read the password attribute')
+  
+  @password.setter
+  def password(self, password):
+      self.pass_secure = generate_password_hash(password)
 
+  def verify_password(self,password):
+      return check_password_hash(self.pass_secure,password)
+
+
+
+  #connect the users access with the users with the User...
 class Role(db.Model):
   __tablename__ = 'roles'
 
