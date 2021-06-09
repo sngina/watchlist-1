@@ -1,12 +1,18 @@
+# from enum import unique
+# from app.main.views import index
 from . import db 
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+from . import login_manager
 
-class User(db.Model): # for creating new user
+class User( UserMixin,db.Model): # for creating new user
   __tablename__ = 'users' # allows us to give table in db a proper name
 
   id = db.Column(db.Integer, primary_key = True) # rep a single column 1st para type of data to be stored
-  username = db.Column(db.String(255)) # db.String type of data to be stored is string (255) is max number
+  username = db.Column(db.String(255), index = True) # db.String type of data to be stored is string (255) is max number
+  email = db.Column(db.String(255), unique = True, index = True)
   role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+  password_hash = db.Column(db.String(255))
 
   def __repr__(self):
     return f'User {self.username}' # not important just for debuging
@@ -75,3 +81,7 @@ class Review:
         response.append((review))
 
     return response
+    # function that retrieves a user when a unique identifier is passed..
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
