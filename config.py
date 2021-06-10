@@ -27,3 +27,16 @@ config_options = {
 'development':DevConfig,
 'production':ProdConfig
 }
+
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://james:password@localhost/watchlist_test'
+
+class DevConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://james:password@localhost/watchlist'
+    DEBUG = True
+
+config_options = {
+'development':DevConfig,
+'production':ProdConfig,
+'test':TestConfig
+}
