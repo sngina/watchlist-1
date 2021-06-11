@@ -74,7 +74,7 @@ class Review (db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     def save_review(self):
       db.session.add(self)
-      db.session.commit
+      db.session.commit()
 
     @classmethod
     def clear_reviews(cls):
@@ -82,7 +82,7 @@ class Review (db.Model):
 
     @classmethod
     def get_reviews(cls, id):
-      reviews = Review.querry.filter_by(movie_id =id).all()
+      reviews = Review.query.filter_by(movie_id =id).all()
 
       return reviews
     # function that retrieves a user when a unique identifier is passed..
